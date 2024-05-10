@@ -1,6 +1,6 @@
 import { Button, Divider, Input } from 'antd';
 import React from 'react';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
                         className='py-3'
                         placeholder="Email"
                         prefix={
-                            <UserOutlined
+                            <MailOutlined
                                 style={{
                                     color: 'rgba(0,0,0,.25)',
                                 }}

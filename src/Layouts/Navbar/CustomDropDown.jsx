@@ -37,9 +37,9 @@ const CustomDropDown = () => (
         }}
     >
         <a onClick={(e) => e.preventDefault()}>
-            <Space>
+            <Space className='text-teal-500 cursor-pointer'>
                 Dashboard
-                <DownOutlined />
+                {/* <DownOutlined /> */}
             </Space>
         </a>
     </Dropdown>
