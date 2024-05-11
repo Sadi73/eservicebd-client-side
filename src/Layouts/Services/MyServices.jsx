@@ -1,7 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+import { Modal } from 'antd';
+const { confirm } = Modal;
 
 const MyServices = () => {
+
+    const showConfirm = () => {
+        confirm({
+            title: 'Do you want to delete these items?',
+            icon: <ExclamationCircleFilled />,
+            content: 'Some descriptions',
+            onOk() {
+                console.log('OK');
+            },
+            onCancel() {
+                Modal.destroyAll();
+            },
+        });
+    };
+
+
     return (
         <div className='my-10 px-10'>
             <div className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl'>
@@ -22,7 +41,10 @@ const MyServices = () => {
                     <div className=' flex flex-col gap-5'>
                         <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
                         <Link to="/add-new-service"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button></Link>
-                        <button className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3 hover:bg-teal-700'>Delete</button>
+                        <button
+                            className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3 hover:bg-teal-700'
+                            onClick={showConfirm}
+                        >Delete</button>
                     </div>
                 </div>
             </div>
