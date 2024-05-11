@@ -1,5 +1,6 @@
 import { Avatar } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AllService = () => {
     return (
@@ -28,7 +29,7 @@ const AllService = () => {
 
                 <div className='buttons flex items-center'>
                     <div className=' flex flex-col gap-5'>
-                        <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button>
+                        <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
                         <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Book Now</button>
                     </div>
                 </div>
