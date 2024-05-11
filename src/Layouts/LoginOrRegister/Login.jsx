@@ -1,9 +1,26 @@
 import { Button, Divider, Input } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const Login = () => {
+
+    const { googleSignIn } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                console.log(result)
+                if(result?.user?.email){
+                    navigate('/')
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     return (
         <div className='flex border mt-5 w-[80%] mx-auto min-h-[550px] rounded-lg'>
@@ -11,7 +28,7 @@ const Login = () => {
                 <div className='space-y-5'>
                     <h1 className='text-center text-3xl text-teal-500 font-semibold'>Sign In to BD Services</h1>
                     <div className='flex justify-center'>
-                        <Button type="" shape="circle">
+                        <Button type="" shape="circle" onClick={handleGoogleSignIn}>
                             G
                         </Button>
                     </div>

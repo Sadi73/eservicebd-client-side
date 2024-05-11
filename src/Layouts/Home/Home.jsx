@@ -7,7 +7,6 @@ const Home = () => {
 
     const { user } = useContext(AuthContext);
 
-    
     return (
         <div >
             <Slider />
