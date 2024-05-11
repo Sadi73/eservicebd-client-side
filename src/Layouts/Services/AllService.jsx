@@ -1,8 +1,12 @@
-import { Avatar } from 'antd';
-import React from 'react';
+import { Avatar, Modal } from 'antd';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import BookService from '../BookService/BookService';
 
 const AllService = () => {
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <div className='my-10 px-10'>
             <div className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl'>
@@ -30,10 +34,17 @@ const AllService = () => {
                 <div className='buttons flex items-center'>
                     <div className=' flex flex-col gap-5'>
                         <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
-                        <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Book Now</button>
+                        <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => setIsModalOpen(true)}>Book Now</button>
                     </div>
                 </div>
             </div>
+
+            {isModalOpen &&
+                <BookService
+                    isModalOpen={isModalOpen}
+                    setIsModalOpen={setIsModalOpen}
+                />
+            }
         </div>
     );
 };
