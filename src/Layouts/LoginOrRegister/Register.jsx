@@ -1,9 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, Divider, Input } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined, FileImageOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const Register = () => {
+    const { signUpWithEmailAndPassword } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            photoURL: '',
+            password: '',
+            confirmPassword: ''
+
+        },
+        onSubmit: values => {
+            // Handle form submission here
+            console.log(values);
+            if (values?.password === values?.confirmPassword) {
+                signUpWithEmailAndPassword(values?.email, values?.password)
+                    .then(result => {
+                        if (result?.user?.email) {
+                            navigate('/');
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            }
+        },
+    })
+
+
     return (
         <div className='flex border mt-5 w-[80%] mx-auto min-h-[550px] rounded-lg'>
 
@@ -28,9 +60,12 @@ const Register = () => {
 
                     <Divider>OR</Divider>
 
-                    <div className='w-3/4 mx-auto'>
-                        <div className='space-y-3 '>
+                    <form onSubmit={handleSubmit}>
+                        <div className='w-3/4 mx-auto space-y-3'>
                             <Input
+                                name='name'
+                                value={values?.name}
+                                onChange={handleChange}
                                 className='py-3 '
                                 placeholder="Name"
                                 prefix={
@@ -43,6 +78,9 @@ const Register = () => {
                             />
 
                             <Input
+                                name='email'
+                                value={values?.email}
+                                onChange={handleChange}
                                 className='py-3'
                                 placeholder="Email"
                                 prefix={
@@ -55,6 +93,9 @@ const Register = () => {
                             />
 
                             <Input
+                                name='photoURL'
+                                value={values?.photoURL}
+                                onChange={handleChange}
                                 className='py-3'
                                 placeholder="PhotoURL"
                                 prefix={
@@ -68,6 +109,9 @@ const Register = () => {
 
 
                             <Input.Password
+                                name='password'
+                                value={values?.password}
+                                onChange={handleChange}
                                 className='py-3'
                                 placeholder="Password"
                                 prefix={
@@ -81,6 +125,9 @@ const Register = () => {
                             />
 
                             <Input.Password
+                                name='confirmPassword'
+                                value={values?.confirmPassword}
+                                onChange={handleChange}
                                 className='py-3'
                                 placeholder="Confirm Password"
                                 prefix={
@@ -93,12 +140,12 @@ const Register = () => {
 
                             />
                         </div>
-                    </div>
 
 
-                    <div className='flex justify-center'>
-                        <button className='bg-teal-500 text-white px-10 py-3 rounded-full'>Sign In</button>
-                    </div>
+                        <div className='flex justify-center'>
+                            <button type='submit' className='bg-teal-500 text-white px-10 py-3 rounded-full'>Sign In</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
