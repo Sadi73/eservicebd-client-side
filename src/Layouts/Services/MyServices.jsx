@@ -21,7 +21,7 @@ const MyServices = () => {
                 <div className='buttons flex items-center'>
                     <div className=' flex flex-col gap-5'>
                         <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
-                        <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button>
+                        <Link to="/add-new-service"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button></Link>
                         <button className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3 hover:bg-teal-700'>Delete</button>
                     </div>
                 </div>
