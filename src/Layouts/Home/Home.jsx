@@ -1,9 +1,11 @@
 import React from 'react';
+import Slider from './Slider';
 
 const Home = () => {
     return (
-        <div>
-            This is home
+        <div className='w-[80%] mx-auto'>
+            <Slider/>
+
         </div>
     );
 };
