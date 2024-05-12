@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Navbar.css';
 import MenuBar from './MenuBar';
 import { Link } from 'react-router-dom';
 import CustomDropDown from './CustomDropDown';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const Navbar = () => {
+
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(result => {
+                console.log(result)
+            })
+            .catch(error => console.log(error))
+    };
 
     return (
         <div className='navbar shadow-lg'>
@@ -24,8 +35,16 @@ const Navbar = () => {
             </div>
 
             <div className='navbar-end'>
-                <Link to="/login"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Login</button></Link>
-                <Link to="/register"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Register</button></Link>
+                {!user?.email ?
+                    <div className='flex gap-3'>
+                        <Link to="/login"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Login</button></Link>
+                        <Link to="/register"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Register</button></Link>
+                    </div> :
+                    <button
+                        className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'
+                        onClick={handleLogOut}
+                    >Log Out</button>
+                }
             </div>
 
         </div >

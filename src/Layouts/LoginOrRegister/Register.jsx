@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { AuthContext } from '../../Providers/AuthProvider';
 
 const Register = () => {
-    const { signUpWithEmailAndPassword } = useContext(AuthContext);
+    const { googleSignIn, signUpWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
@@ -20,7 +20,6 @@ const Register = () => {
         },
         onSubmit: values => {
             // Handle form submission here
-            console.log(values);
             if (values?.password === values?.confirmPassword) {
                 signUpWithEmailAndPassword(values?.email, values?.password)
                     .then(result => {
@@ -33,7 +32,19 @@ const Register = () => {
                     })
             }
         },
-    })
+    });
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                if (result?.user?.email) {
+                    navigate('/')
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    };
 
 
     return (
@@ -53,14 +64,14 @@ const Register = () => {
                 <div className='space-y-5 '>
                     <h1 className='text-center text-3xl text-teal-500 font-semibold'>Create Account</h1>
                     <div className='flex justify-center'>
-                        <Button type="" shape="circle">
+                        <Button type="" shape="circle" onClick={handleGoogleSignIn}>
                             G
                         </Button>
                     </div>
 
                     <Divider>OR</Divider>
 
-                    <form onSubmit={handleSubmit}>
+                    <form className='space-y-5' onSubmit={handleSubmit}>
                         <div className='w-3/4 mx-auto space-y-3'>
                             <Input
                                 name='name'

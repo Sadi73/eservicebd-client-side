@@ -3,24 +3,45 @@ import React, { useContext } from 'react';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { useFormik } from 'formik';
 
 const Login = () => {
 
-    const { googleSignIn } = useContext(AuthContext);
+    const { googleSignIn, loginWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-                console.log(result)
-                if(result?.user?.email){
+                if (result?.user?.email) {
                     navigate('/')
                 }
             })
             .catch(err => {
                 console.log(err)
             })
-    }
+    };
+
+    const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+
+        },
+        onSubmit: values => {
+            // Handle form submission here
+            loginWithEmailAndPassword(values?.email, values?.password)
+                .then(result => {
+                    if(result?.user?.email){
+                        navigate('/')
+                    }
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+    })
 
     return (
         <div className='flex border mt-5 w-[80%] mx-auto min-h-[550px] rounded-lg'>
@@ -35,36 +56,42 @@ const Login = () => {
 
                     <Divider>OR</Divider>
 
-                    <Input
-                        className='py-3'
-                        placeholder="Email"
-                        prefix={
-                            <MailOutlined
-                                style={{
-                                    color: 'rgba(0,0,0,.25)',
-                                }}
-                            />
-                        }
-                    />
+                    <form className='space-y-5' onSubmit={handleSubmit}>
+                        <Input
+                            name='email'
+                            onChange={handleChange}
+                            className='py-3'
+                            placeholder="Email"
+                            prefix={
+                                <MailOutlined
+                                    style={{
+                                        color: 'rgba(0,0,0,.25)',
+                                    }}
+                                />
+                            }
+                        />
 
 
-                    <Input.Password
-                        className='py-3'
-                        placeholder="Password"
-                        prefix={
-                            <LockOutlined
-                                style={{
-                                    color: 'rgba(0,0,0,.25)',
-                                }}
-                            />
-                        }
+                        <Input.Password
+                            name='password'
+                            onChange={handleChange}
+                            className='py-3'
+                            placeholder="Password"
+                            prefix={
+                                <LockOutlined
+                                    style={{
+                                        color: 'rgba(0,0,0,.25)',
+                                    }}
+                                />
+                            }
 
-                    />
+                        />
 
 
-                    <div className='flex justify-center'>
-                        <button className='bg-teal-500 text-white px-10 py-3 rounded-full'>Sign In</button>
-                    </div>
+                        <div className='flex justify-center'>
+                            <button type='submit' className='bg-teal-500 text-white px-10 py-3 rounded-full'>Sign In</button>
+                        </div>
+                    </form>
 
                 </div>
             </div>
