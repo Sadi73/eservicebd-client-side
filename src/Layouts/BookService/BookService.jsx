@@ -24,7 +24,16 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
         },
         onSubmit: values => {
             // Handle form submission here
-            console.log(values)
+            console.log(values);
+            fetch('http://localhost:3000/book-service', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data))
         },
     });
 
