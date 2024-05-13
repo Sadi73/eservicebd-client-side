@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
+import { AuthContext } from '../../Providers/AuthProvider';
 const { confirm } = Modal;
 
 const MyServices = () => {
+
+    const { user } = useContext(AuthContext)
 
     const showConfirm = () => {
         confirm({
@@ -19,6 +22,14 @@ const MyServices = () => {
             },
         });
     };
+
+    useEffect(() => {
+        if (user?.email) {
+            fetch(`http://localhost:3000/services/all?email=${user.email}`)
+                .then(res => res.json())
+                .then(data => console.log(data))
+        }
+    }, []);
 
 
     return (
@@ -42,7 +53,7 @@ const MyServices = () => {
                         <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
                         <Link to="/add-new-service"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button></Link>
                         <button
-                            className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3 hover:bg-teal-700'
+                            className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3'
                             onClick={showConfirm}
                         >Delete</button>
                     </div>

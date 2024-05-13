@@ -23,14 +23,14 @@ const Navbar = () => {
                 <div className='md:hidden'>
                     <MenuBar />
                 </div>
-                <Link to="/"><button className='text-3xl font-medium text-teal-500'>BD Services</button></Link>
+                <Link to="/"><button className='text-3xl font-medium text-teal-500'>EServices BD</button></Link>
             </div>
 
             <div className='navbar-center hidden md:flex'>
                 <ul className='menu menu-horizontal '>
                     <li className='mx-5 text-teal-500'><Link to="/">Home</Link></li>
                     <li className='mx-5 text-teal-500'><Link to="service/all">Services</Link></li>
-                    <li><CustomDropDown /></li>
+                    {user && <li><CustomDropDown /></li>}
                 </ul>
             </div>
 

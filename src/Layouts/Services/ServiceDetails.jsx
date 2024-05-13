@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BookService from '../BookService/BookService';
+import { useParams } from 'react-router-dom';
 
 const ServiceDetails = () => {
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const params = useParams();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [serviceInfo, setServiceInfo] = useState([]);
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/service/${params?.serviceId}`)
+            .then(res => res.json())
+            .then(data => setServiceInfo(data))
+    }, []);
+
+    console.log(serviceInfo)
 
     return (
         <>
@@ -12,9 +23,9 @@ const ServiceDetails = () => {
                 <div className='flex gap-5'>
                     <img src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" alt="" />
                     <div>
-                        <h1>Service Name</h1>
-                        <p>Service Details</p>
-                        <p>Service Price</p>
+                        <h1>{serviceInfo?.serviceTitle}</h1>
+                        <p>{serviceInfo?.description}</p>
+                        <p>{serviceInfo?.price}</p>
                     </div>
                 </div>
 

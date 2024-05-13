@@ -1,4 +1,4 @@
-import { Avatar, Modal } from 'antd';
+import { Avatar } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookService from '../BookService/BookService';
@@ -25,23 +25,22 @@ const AllService = () => {
                     />
 
                     <div className='service details w-[500px] flex flex-col'>
-                        <h1>Name</h1>
-                        <p>Description</p>
-
+                        <h1>{service?.serviceTitle}</h1>
+                        <p>{service?.description}</p>
                     </div>
 
                     <div className='service provider info w-[300px]'>
+                        <h1>Service Provider</h1>
                         <div className='flex items-center gap-3'>
                             <Avatar />
-                            <h1>Name</h1>
+                            <h1>{service?.providerInfo?.providerName}</h1>
                         </div>
-                        <p>Email</p>
-
+                        <p>{service?.providerInfo?.providerEmail}</p>
                     </div>
 
                     <div className='buttons flex items-center'>
                         <div className=' flex flex-col gap-5'>
-                            <Link to="/service/1"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
+                            <Link to={`/service/${service._id}`}><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
                             <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => setIsModalOpen(true)}>Book Now</button>
                         </div>
                     </div>

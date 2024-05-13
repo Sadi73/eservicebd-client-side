@@ -79,6 +79,8 @@ const AddNewService = () => {
         },
     });
 
+    console.log(values)
+
     return (
         <div>
             <div className='h-96 bg-teal-500'></div>
