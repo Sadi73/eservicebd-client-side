@@ -19,14 +19,14 @@ const AllService = () => {
             {allServices.map(service =>
                 <div key={service?._id} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
                     <img
-                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                        src={service?.imageURL}
                         alt=""
                         className='w-96'
                     />
 
                     <div className='service details w-[500px] flex flex-col'>
                         <h1>{service?.serviceTitle}</h1>
-                        <p>{service?.description}</p>
+                        <p>{service?.description?.slice(0, 200)}<span className='font-bold'>...more</span></p>
                     </div>
 
                     <div className='service provider info w-[300px]'>
