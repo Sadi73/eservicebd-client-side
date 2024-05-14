@@ -9,6 +9,9 @@ const MyServices = () => {
 
     const { user } = useContext(AuthContext);
     const [myServices, setMyServices] = useState([]);
+    const [reload, setReload] = useState(false);
+
+    const [idToBeDeleted, setIdToBeDeleted] = useState(null);
 
     const showConfirm = () => {
         confirm({
@@ -16,7 +19,15 @@ const MyServices = () => {
             icon: <ExclamationCircleFilled />,
             content: 'Some descriptions',
             onOk() {
-                console.log('OK');
+                fetch(`http://localhost:3000/service/delete/${idToBeDeleted}`, {
+                    method: 'delete'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data?.deletedCount) {
+                            setReload(!reload);
+                        }
+                    })
             },
             onCancel() {
                 Modal.destroyAll();
@@ -30,7 +41,13 @@ const MyServices = () => {
                 .then(res => res.json())
                 .then(data => setMyServices(data))
         }
-    }, []);
+    }, [reload]);
+
+    useEffect(() => {
+        if (idToBeDeleted !== null) {
+            showConfirm();
+        }
+    }, [idToBeDeleted]);
 
 
     return (
@@ -38,14 +55,14 @@ const MyServices = () => {
             {myServices.map(service =>
                 <div key={service?._id} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
                     <img
-                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                        src={service?.imageURL}
                         alt=""
                         className='w-96'
                     />
 
-                    <div className='service details w-[500px] flex flex-col grow'>
-                        <h1>{service?.serviceTitle}</h1>
-                        <p>{service?.description}</p>
+                    <div className='service details w-[500px] grow space-y-5'>
+                        <h1 className='text-3xl font-semibold'>{service?.serviceTitle}</h1>
+                        <p>{service?.description?.slice(0, 200)}<span className='font-bold'>...more</span></p>
 
                     </div>
 
@@ -56,7 +73,10 @@ const MyServices = () => {
                             <Link to="/add-new-service"><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button></Link>
                             <button
                                 className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3'
-                                onClick={showConfirm}
+                                onClick={() => {
+                                    setIdToBeDeleted(service?._id);
+                                    // showConfirm(); 
+                                }}
                             >Delete</button>
                         </div>
                     </div>
