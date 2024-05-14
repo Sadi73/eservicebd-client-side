@@ -27,7 +27,7 @@ const Register = () => {
                     .then(result => {
                         if (result?.user?.email) {
                             updateProfile(auth.currentUser, {
-                                displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+                                displayName: values?.name, photoURL: values?.photoURL
                             }).then(() => {
                                 navigate('/');
                             })

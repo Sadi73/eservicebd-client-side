@@ -80,7 +80,6 @@ const AddNewService = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
                         Modal.success({
                             title: 'Success',
                             content: 'You have successfully updated this service.',

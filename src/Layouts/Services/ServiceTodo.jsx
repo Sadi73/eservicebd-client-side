@@ -46,7 +46,6 @@ const ServiceTodo = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
                 setReload(!reload);
             })
     }

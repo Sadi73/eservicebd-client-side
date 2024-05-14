@@ -1,7 +1,7 @@
 import { Button, Divider, Input } from 'antd';
 import React, { useContext } from 'react';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { useFormik } from 'formik';
 
@@ -9,12 +9,13 @@ const Login = () => {
 
     const { googleSignIn, loginWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
                 if (result?.user?.email) {
-                    navigate('/')
+                    navigate(location?.state ? location?.state : '/')
                 }
             })
             .catch(err => {
@@ -32,8 +33,8 @@ const Login = () => {
             // Handle form submission here
             loginWithEmailAndPassword(values?.email, values?.password)
                 .then(result => {
-                    if(result?.user?.email){
-                        navigate('/')
+                    if (result?.user?.email) {
+                        navigate(location?.state ? location?.state : '/')
                     }
 
                 })
@@ -41,7 +42,7 @@ const Login = () => {
                     console.log(error)
                 })
         },
-    })
+    });
 
     return (
         <div className='flex border mt-5 w-[80%] mx-auto min-h-[550px] rounded-lg'>

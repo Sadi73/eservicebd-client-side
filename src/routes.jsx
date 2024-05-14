@@ -10,6 +10,7 @@ import MyServices from "./Layouts/Services/MyServices";
 import BookedServices from "./Layouts/Services/BookedServices";
 import ServiceTodo from "./Layouts/Services/ServiceTodo";
 import UpdateProfile from "./Layouts/UpdateProfile/UpdateProfile";
+import PrivateRoute from "./Layouts/PrivateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -34,31 +35,31 @@ const router = createBrowserRouter([
             },
             {
                 path: "/service/:serviceId",
-                element: <ServiceDetails />
+                element: <PrivateRoute><ServiceDetails /></PrivateRoute>
             },
             {
                 path: "/add-new-service",
-                element: <AddNewService />
+                element: <PrivateRoute><AddNewService /></PrivateRoute>
             },
             {
                 path: "/update-service/:serviceId",
-                element: <AddNewService />
+                element: <PrivateRoute><AddNewService /></PrivateRoute>
             },
             {
                 path: "/manage-service",
-                element: <MyServices />
+                element: <PrivateRoute><MyServices /></PrivateRoute>
             },
             {
                 path: "/booked-service",
-                element: <BookedServices />
+                element: <PrivateRoute> <BookedServices /></PrivateRoute>
             },
             {
                 path: "/service-to-do",
-                element: <ServiceTodo />
+                element: <PrivateRoute><ServiceTodo /></PrivateRoute>
             },
             {
                 path: "/update-profile",
-                element: <UpdateProfile />
+                element: <PrivateRoute><UpdateProfile /></PrivateRoute>
             },
         ]
     },
