@@ -111,9 +111,9 @@ const AddNewService = () => {
 
     return (
         <div>
-            <div className='h-96 bg-teal-500'></div>
+            {/* <div className='h-96 bg-teal-500'></div> */}
 
-            <h1 className='text-5xl font-semibold text-center mt-10'>Add New Service</h1>
+            <h1 className='text-5xl font-semibold text-center mt-10'>{params?.serviceId ? 'Update' : 'Add New'} Service</h1>
             <p className='text-center'>Adding new product has never been this easy</p>
 
             <form

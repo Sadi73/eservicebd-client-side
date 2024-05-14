@@ -28,6 +28,7 @@ const ServiceDetails = () => {
                 <BookService
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
+                    serviceToBeBookedInfo={serviceInfo}
                 />
             }
 
