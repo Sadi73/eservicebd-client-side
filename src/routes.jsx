@@ -11,11 +11,13 @@ import BookedServices from "./Layouts/Services/BookedServices";
 import ServiceTodo from "./Layouts/Services/ServiceTodo";
 import UpdateProfile from "./Layouts/UpdateProfile/UpdateProfile";
 import PrivateRoute from "./Layouts/PrivateRoute/PrivateRoute";
+import ErrorPage from "./Layouts/ErrorPage/ErrorPage";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
