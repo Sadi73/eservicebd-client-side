@@ -53,7 +53,7 @@ const MyServices = () => {
     return (
         <div className='my-10 px-10'>
             {myServices.map(service =>
-                <div key={service?._id} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
+                <div key={service?.sequence_value} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
                     <img
                         src={service?.imageURL}
                         alt=""
@@ -74,7 +74,7 @@ const MyServices = () => {
                             <button
                                 className='border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-5 py-3'
                                 onClick={() => {
-                                    setIdToBeDeleted(service?._id);
+                                    setIdToBeDeleted(service?.sequence_value);
                                 }}
                             >Delete</button>
                         </div>

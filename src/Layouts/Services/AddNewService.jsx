@@ -1,8 +1,8 @@
-import { Select } from 'antd';
+import { Modal, Select } from 'antd';
 import { useFormik } from 'formik';
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const selectOptions = [
     {
@@ -52,6 +52,8 @@ const AddNewService = () => {
     const { user } = useContext(AuthContext);
     const params = useParams();
 
+    const navigate = useNavigate();
+
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
             serviceTitle: '',
@@ -87,7 +89,20 @@ const AddNewService = () => {
                     body: JSON.stringify(values)
                 })
                     .then(res => res.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        if(data?.insertedId){
+                            Modal.success({
+                                title: 'Success',
+                                content: 'You have successfully add new service.',
+                                onOk: () => {
+                                    navigate('/service/all'); 
+                                  },
+                                  onCancel: () => {
+                                    navigate('/service/all'); 
+                                  }
+                            });
+                        }
+                    })
             }
         },
     });

@@ -37,7 +37,6 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     if (data?.insertedId) {
                         showSuccessModal();
                     }
