@@ -28,7 +28,7 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
 
         },
         onSubmit: values => {
-            fetch('http://localhost:3000/book-service', {
+            fetch('https://b9a11serverside-sadi73s-projects.vercel.app/book-service', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'

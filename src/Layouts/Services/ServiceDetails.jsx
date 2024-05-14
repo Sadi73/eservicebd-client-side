@@ -12,7 +12,7 @@ const ServiceDetails = () => {
     const [serviceInfo, setServiceInfo] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/service/${params?.serviceId}`)
+        fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/service/${params?.serviceId}`)
             .then(res => res.json())
             .then(data => {
                 setServiceInfo(data);

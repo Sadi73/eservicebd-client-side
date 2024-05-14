@@ -11,7 +11,7 @@ const AllService = () => {
     const [serviceToBeBookedInfo, setServiceToBeBookedInfo] = useState({})
 
     useEffect(() => {
-        fetch('http://localhost:3000/services/all')
+        fetch('https://b9a11serverside-sadi73s-projects.vercel.app/services/all')
             .then(res => res.json())
             .then(data => {
                 setAllServices(data);
@@ -31,7 +31,7 @@ const AllService = () => {
             {isLoading ? <Spin /> :
                 <div className='my-10 px-10'>
                     {allServices.map(service =>
-                        <div key={service?.sequence_value} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
+                        <div key={service?.sequence_value} className='flex items-center gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5 h-60'>
                             <img
                                 src={service?.imageURL}
                                 alt=""

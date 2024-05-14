@@ -7,7 +7,7 @@ const PopularServices = () => {
     const [popularServices, setPopularServices] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/services/popular')
+        fetch('https://b9a11serverside-sadi73s-projects.vercel.app/services/popular')
             .then(res => res.json())
             .then(data => setPopularServices(data))
     }, []);

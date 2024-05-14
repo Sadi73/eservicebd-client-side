@@ -6,7 +6,7 @@ const BookedServices = () => {
     const [allBookedServices, setAllBookedServices] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3000/booked-service/all')
+        fetch('https://b9a11serverside-sadi73s-projects.vercel.app/booked-service/all')
             .then(res => res.json())
             .then(data => {
                 setAllBookedServices(data);

@@ -71,7 +71,7 @@ const AddNewService = () => {
         onSubmit: values => {
             // Handle form submission here
             if (params?.serviceId) {
-                fetch(`http://localhost:3000/update-service/${params?.serviceId}`, {
+                fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/update-service/${params?.serviceId}`, {
                     method: 'PUT',
                     headers: {
                         'content-type': 'application/json'
@@ -81,7 +81,7 @@ const AddNewService = () => {
                     .then(res => res.json())
                     .then(data => console.log(data))
             } else {
-                fetch('http://localhost:3000/add-service', {
+                fetch('https://b9a11serverside-sadi73s-projects.vercel.app/add-service', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -109,7 +109,7 @@ const AddNewService = () => {
 
     useEffect(() => {
         if (params?.serviceId) {
-            fetch(`http://localhost:3000/service/${params?.serviceId}`)
+            fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/service/${params?.serviceId}`)
                 .then(res => res.json())
                 .then(data => {
                     setValues({

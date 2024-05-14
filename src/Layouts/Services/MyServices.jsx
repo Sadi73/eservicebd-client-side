@@ -19,7 +19,7 @@ const MyServices = () => {
             icon: <ExclamationCircleFilled />,
             content: 'Some descriptions',
             onOk() {
-                fetch(`http://localhost:3000/service/delete/${idToBeDeleted}`, {
+                fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/service/delete/${idToBeDeleted}`, {
                     method: 'delete'
                 })
                     .then(res => res.json())
@@ -37,7 +37,7 @@ const MyServices = () => {
 
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:3000/services/all?email=${user.email}`)
+            fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/services/all?email=${user.email}`)
                 .then(res => res.json())
                 .then(data => setMyServices(data))
         }
