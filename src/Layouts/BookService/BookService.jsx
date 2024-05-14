@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import { Modal } from 'antd';
 import { useFormik } from 'formik';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => {
 
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
@@ -34,15 +36,34 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
                 body: JSON.stringify(values)
             })
                 .then(res => res.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data)
+                    if (data?.insertedId) {
+                        showSuccessModal();
+                    }
+                })
         },
     });
 
     const handleOk = () => {
         setIsModalOpen(false);
     };
+
     const handleCancel = () => {
         setIsModalOpen(false);
+    };
+
+    const showSuccessModal = () => {
+        Modal.success({
+            title: 'Success',
+            content: 'You have uccessfully Booked this service.',
+            onOk: () => {
+                navigate('/booked-service'); 
+              },
+              onCancel: () => {
+                navigate('/booked-service'); 
+              }
+        });
     };
 
     return (
