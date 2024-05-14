@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { AuthContext } from '../../Providers/AuthProvider';
+import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
 const { confirm } = Modal;
 
 const MyServices = () => {
@@ -52,7 +53,7 @@ const MyServices = () => {
 
     return (
         <div className='my-10 px-10'>
-            {myServices.map(service =>
+            {myServices?.length > 0 ? myServices.map(service =>
                 <div key={service?.sequence_value} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
                     <img
                         src={service?.imageURL}
@@ -79,8 +80,8 @@ const MyServices = () => {
                             >Delete</button>
                         </div>
                     </div>
-                </div>
-            )}
+                </div>) : <EmptyScreenView/>
+            }
         </div>
     );
 };

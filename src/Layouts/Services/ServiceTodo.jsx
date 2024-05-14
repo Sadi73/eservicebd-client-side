@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
+import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
 
 
 
@@ -20,8 +21,9 @@ const ServiceTodo = () => {
             onClick: () => handleStatus('Confirmed'),
         },
         {
-            label: '3rd menu item',
+            label: 'Working',
             key: '3',
+            onClick: () => handleStatus('Working'),
         },
     ];
 
@@ -52,7 +54,7 @@ const ServiceTodo = () => {
 
     return (
         <div className='w-[80%] mx-auto mt-10 space-y-5'>
-            {services?.length > 0 && services.map(service =>
+            {services?.length > 0 ? services.map(service =>
                 <div className='flex items-center gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5 h-60'>
                     <img
                         src={service?.imageURL}
@@ -86,7 +88,8 @@ const ServiceTodo = () => {
                             </Dropdown>
                         </div>
                     </div>
-                </div>)}
+                </div>) : <EmptyScreenView/>
+            }
         </div>
     );
 };
