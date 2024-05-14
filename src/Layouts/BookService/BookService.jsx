@@ -9,7 +9,7 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
 
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
-            serviceId: serviceToBeBookedInfo?._id,
+            sequence_value: serviceToBeBookedInfo?.sequence_value,
             serviceTitle: serviceToBeBookedInfo?.serviceTitle,
             price: serviceToBeBookedInfo?.price,
             imageURL: serviceToBeBookedInfo?.imageURL,
@@ -60,8 +60,8 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
                         <label htmlFor="">Service ID</label>
                         <input
                             type="text"
-                            name="serviceId"
-                            value={values?.serviceId}
+                            name="sequence_value"
+                            value={values?.sequence_value}
                             disabled
                             id=""
                             onChange={handleChange}

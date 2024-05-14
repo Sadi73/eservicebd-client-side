@@ -30,7 +30,7 @@ const BookedServices = () => {
                         </div>
                         <button
                             className=' bg-teal-500 text-white px-3 py-2'
-                            onClick={() => navigate(`/service/${service?._id}`)}
+                            onClick={() => navigate(`/service/${service?.sequence_value}`)}
                         >Details</button>
 
                     </div>
