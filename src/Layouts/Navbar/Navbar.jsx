@@ -4,15 +4,33 @@ import MenuBar from './MenuBar';
 import { Link } from 'react-router-dom';
 import CustomDropDown from './CustomDropDown';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { Avatar, Dropdown, Space } from 'antd';
+import { UserOutlined, DownOutlined } from '@ant-design/icons';
+
+
 
 const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext);
 
+    const items = [
+        {
+            key: '1',
+            label: (
+                <Link to="/update-profile">Update Profile</Link>
+            ),
+        },
+        {
+            label: 'Log Out',
+            key: '2',
+            onClick: () => handleLogOut()
+        },
+    ];
+
     const handleLogOut = () => {
         logOut()
             .then(result => {
-                console.log(result)
+                console.log(result);
             })
             .catch(error => console.log(error))
     };
@@ -40,10 +58,26 @@ const Navbar = () => {
                         <Link to="/login"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Login</button></Link>
                         <Link to="/register"><button className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'>Register</button></Link>
                     </div> :
-                    <button
-                        className='border px-5 py-3 text-teal-500 border-teal-500 hover:bg-teal-500 hover:text-white'
-                        onClick={handleLogOut}
-                    >Log Out</button>
+                    <div className='flex gap-2 items-center'>
+                        <div className='text-sm'>
+                            {user?.email}
+                        </div>
+                        <Dropdown
+                            menu={{
+                                items,
+                            }}
+                            trigger={['click']}
+                        >
+                            <Avatar
+                                style={{
+                                    backgroundColor: '#87d068',
+                                    cursor: 'pointer',
+                                }}
+                                icon={<UserOutlined />}
+                            />
+
+                        </Dropdown>
+                    </div>
                 }
             </div>
 

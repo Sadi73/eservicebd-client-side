@@ -4,6 +4,8 @@ import { UserOutlined, LockOutlined, MailOutlined, FileImageOutlined } from '@an
 import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { updateProfile } from 'firebase/auth';
+import auth from '../../Firebase/firebase.config';
 
 const Register = () => {
     const { googleSignIn, signUpWithEmailAndPassword } = useContext(AuthContext);
@@ -24,6 +26,12 @@ const Register = () => {
                 signUpWithEmailAndPassword(values?.email, values?.password)
                     .then(result => {
                         if (result?.user?.email) {
+                            updateProfile(auth.currentUser, {
+                                displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+                            }).then(() => {
+                                navigate('/');
+                            })
+                                .catch(error => console.log(error))
                             navigate('/');
                         }
                     })

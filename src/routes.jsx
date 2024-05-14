@@ -9,6 +9,7 @@ import AddNewService from "./Layouts/Services/AddNewService";
 import MyServices from "./Layouts/Services/MyServices";
 import BookedServices from "./Layouts/Services/BookedServices";
 import ServiceTodo from "./Layouts/Services/ServiceTodo";
+import UpdateProfile from "./Layouts/UpdateProfile/UpdateProfile";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             {
                 path: "/service-to-do",
                 element: <ServiceTodo />
+            },
+            {
+                path: "/update-profile",
+                element: <UpdateProfile />
             },
         ]
     },

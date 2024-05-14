@@ -79,7 +79,19 @@ const AddNewService = () => {
                     body: JSON.stringify(values)
                 })
                     .then(res => res.json())
-                    .then(data => console.log(data))
+                    .then(data => {
+                        console.log(data);
+                        Modal.success({
+                            title: 'Success',
+                            content: 'You have successfully updated this service.',
+                            onOk: () => {
+                                navigate('/service/all');
+                            },
+                            onCancel: () => {
+                                navigate('/service/all');
+                            }
+                        });
+                    })
             } else {
                 fetch('https://b9a11serverside-sadi73s-projects.vercel.app/add-service', {
                     method: 'POST',
@@ -90,16 +102,16 @@ const AddNewService = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        if(data?.insertedId){
+                        if (data?.insertedId) {
                             Modal.success({
                                 title: 'Success',
                                 content: 'You have successfully add new service.',
                                 onOk: () => {
-                                    navigate('/service/all'); 
-                                  },
-                                  onCancel: () => {
-                                    navigate('/service/all'); 
-                                  }
+                                    navigate('/service/all');
+                                },
+                                onCancel: () => {
+                                    navigate('/service/all');
+                                }
                             });
                         }
                     })
