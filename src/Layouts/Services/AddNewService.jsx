@@ -1,7 +1,8 @@
 import { Select } from 'antd';
 import { useFormik } from 'formik';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { useParams } from 'react-router-dom';
 
 const selectOptions = [
     {
@@ -49,6 +50,7 @@ const selectOptions = [
 const AddNewService = () => {
 
     const { user } = useContext(AuthContext);
+    const params = useParams();
 
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
@@ -66,20 +68,46 @@ const AddNewService = () => {
         },
         onSubmit: values => {
             // Handle form submission here
-            console.log(values);
-            fetch('http://localhost:3000/add-service', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            })
-                .then(res => res.json())
-                .then(data => console.log(data))
+            if (params?.serviceId) {
+                fetch(`http://localhost:3000/update-service/${params?.serviceId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+            } else {
+                fetch('http://localhost:3000/add-service', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(values)
+                })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+            }
         },
     });
 
-    console.log(values)
+    useEffect(() => {
+        if (params?.serviceId) {
+            fetch(`http://localhost:3000/service/${params?.serviceId}`)
+                .then(res => res.json())
+                .then(data => {
+                    setValues({
+                        ...values,
+                        serviceTitle: data?.serviceTitle,
+                        price: data?.price,
+                        imageURL: data?.imageURL,
+                        serviceArea: data?.serviceArea,
+                        description: data?.description,
+                    })
+                })
+        }
+    }, [])
 
     return (
         <div>

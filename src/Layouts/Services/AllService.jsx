@@ -8,6 +8,7 @@ const AllService = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [allServices, setAllServices] = useState([]);
+    const [serviceToBeBookedInfo, setServiceToBeBookedInfo] = useState({})
 
     useEffect(() => {
         fetch('http://localhost:3000/services/all')
@@ -24,6 +25,7 @@ const AllService = () => {
                 <BookService
                     isModalOpen={isModalOpen}
                     setIsModalOpen={setIsModalOpen}
+                    serviceToBeBookedInfo={serviceToBeBookedInfo}
                 />
             }
             {isLoading ? <Spin /> :
@@ -53,7 +55,10 @@ const AllService = () => {
                             <div className='buttons flex items-center'>
                                 <div className=' flex flex-col gap-5'>
                                     <Link to={`/service/${service._id}`}><button className='bg-teal-500 text-white px-8 py-3 hover:bg-teal-700'>Details</button></Link>
-                                    <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => setIsModalOpen(true)}>Book Now</button>
+                                    <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => {
+                                        setServiceToBeBookedInfo(service);
+                                        setIsModalOpen(true);
+                                    }}>Book Now</button>
                                 </div>
                             </div>
                         </div>

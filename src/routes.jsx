@@ -40,6 +40,10 @@ const router = createBrowserRouter([
                 element: <AddNewService />
             },
             {
+                path: "/update-service/:serviceId",
+                element: <AddNewService />
+            },
+            {
                 path: "/manage-service",
                 element: <MyServices />
             },

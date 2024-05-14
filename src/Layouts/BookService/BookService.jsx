@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Modal } from 'antd';
 import { useFormik } from 'formik';
+import { AuthContext } from '../../Providers/AuthProvider';
 
-const BookService = ({ isModalOpen, setIsModalOpen }) => {
+const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => {
+
+    const { user } = useContext(AuthContext);
 
     const { values, setValues, handleBlur, handleChange, handleSubmit, errors, touched } = useFormik({
         initialValues: {
-            serviceId: '',
-            serviceTitle: '',
-            price: '',
-            imageURL: '',
+            serviceId: serviceToBeBookedInfo?._id,
+            serviceTitle: serviceToBeBookedInfo?.serviceTitle,
+            price: serviceToBeBookedInfo?.price,
+            imageURL: serviceToBeBookedInfo?.imageURL,
             providerInfo: {
-                providerName: '',
-                providerEmail: '',
-                providerImageURL: '',
+                providerName: serviceToBeBookedInfo?.providerInfo?.providerName,
+                providerEmail: serviceToBeBookedInfo?.providerInfo?.providerEmail,
+                providerImageURL: serviceToBeBookedInfo?.providerInfo?.providerImageURL,
             },
             customerInfo: {
-                customerName: '',
-                customerEmail: '',
+                customerName: user?.displayName,
+                customerEmail: user?.email,
             },
             status: 'Pending'
 
         },
         onSubmit: values => {
-            // Handle form submission here
-            console.log(values);
             fetch('http://localhost:3000/book-service', {
                 method: 'POST',
                 headers: {
@@ -61,6 +62,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             type="text"
                             name="serviceId"
                             value={values?.serviceId}
+                            disabled
                             id=""
                             onChange={handleChange}
                             className='border w-full py-2 pl-2'
@@ -74,6 +76,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             type="text"
                             name="serviceTitle"
                             value={values?.serviceTitle}
+                            disabled
                             id=""
                             onChange={handleChange}
                             className='border w-full py-2 pl-2'
@@ -87,6 +90,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             type="text"
                             name="imageURL"
                             value={values?.imageURL}
+                            disabled
                             id=""
                             onChange={handleChange}
                             className='border w-full py-2 pl-2'
@@ -100,6 +104,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             type="text"
                             name="price"
                             value={values?.price}
+                            disabled
                             id=""
                             onChange={handleChange}
                             className='border w-full py-2 pl-2'
@@ -114,6 +119,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             name="providerInfo.providerName"
                             value={values?.providerInfo?.providerName}
                             onChange={handleChange}
+                            disabled
                             id=""
                             className='border w-full py-2 pl-2'
                             placeholder='Provider Name'
@@ -127,6 +133,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             name="providerInfo.providerEmail"
                             value={values?.providerInfo?.providerEmail}
                             onChange={handleChange}
+                            disabled
                             id=""
                             className='border w-full py-2 pl-2'
                             placeholder='Provider Email'
@@ -140,6 +147,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             name="customerInfo.customerName"
                             value={values?.customerInfo?.customerName}
                             onChange={handleChange}
+                            disabled
                             id=""
                             rows="5"
                             className='border w-full py-2 pl-2'
@@ -154,6 +162,7 @@ const BookService = ({ isModalOpen, setIsModalOpen }) => {
                             name="customerInfo.customerEmail"
                             value={values?.customerInfo?.customerEmail}
                             onChange={handleChange}
+                            disabled
                             id=""
                             rows="5"
                             className='border w-full py-2 pl-2'
