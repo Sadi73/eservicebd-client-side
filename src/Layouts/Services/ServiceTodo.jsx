@@ -70,7 +70,8 @@ const ServiceTodo = () => {
                     <div className='service provider info w-[300px]'>
                         <h1 className='text-xl'>Service Requester</h1>
                         <div className='flex items-center gap-3'>
-                            <Avatar />
+                            <Avatar
+                                src={service?.customerInfo?.customerImageURL} />
                             <h1 className='font-bold'>{service?.customerInfo?.customerName}</h1>
                         </div>
                         <p className='font-semibold'>{service?.customerInfo?.customerEmail}</p>
@@ -88,7 +89,7 @@ const ServiceTodo = () => {
                             </Dropdown>
                         </div>
                     </div>
-                </div>) : <EmptyScreenView/>
+                </div>) : <EmptyScreenView />
             }
         </div>
     );

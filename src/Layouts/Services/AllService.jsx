@@ -50,7 +50,9 @@ const AllService = () => {
                             <div className='service provider info w-[300px]'>
                                 <h1 className='text-xl'>Service Provider</h1>
                                 <div className='flex items-center gap-3'>
-                                    <Avatar />
+                                    <Avatar
+                                        src={service?.providerInfo?.providerImageURL}
+                                    />
                                     <h1 className='font-bold'>{service?.providerInfo?.providerName}</h1>
                                 </div>
                                 <p className='font-semibold'>{service?.providerInfo?.providerEmail}</p>

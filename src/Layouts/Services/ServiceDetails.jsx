@@ -48,16 +48,14 @@ const ServiceDetails = () => {
                         </div>
                     </div>
 
-                    <Divider>Provider Info</Divider>
+                    <Divider><span className='font-bold text-xl'>Provider Info</span></Divider>
 
-                    <div className='flex gap-5 justify-between'>
+                    <div className='flex gap-5 justify-between max-w-[60%] mx-auto items-center'>
                         <div className='w-[60%]'>
-                            <h1>{serviceInfo?.providerInfo?.providerName}</h1>
-                            <p>{serviceInfo?.providerInfo?.providerEmail}</p>
+                            <h1 className='font-bold'>{serviceInfo?.providerInfo?.providerName}</h1>
+                            <p className='font-semibold'>{serviceInfo?.providerInfo?.providerEmail}</p>
                         </div>
-                        <div className='w-1/3'>
-                            <img src={serviceInfo?.providerInfo?.providerImage} alt="image not found" className='w-full' />
-                        </div>
+                        <img src={serviceInfo?.providerInfo?.providerImageURL} alt="image not found" className='w-64' />
                     </div>
 
                     {serviceInfo?.providerInfo?.providerEmail !== user?.email &&

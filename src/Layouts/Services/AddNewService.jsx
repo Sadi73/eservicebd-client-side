@@ -64,7 +64,7 @@ const AddNewService = () => {
             providerInfo: {
                 providerName: user?.displayName,
                 providerEmail: user?.email,
-                providerImageURL: user?.imageURL,
+                providerImageURL: user?.photoURL || '',
             }
 
         },
