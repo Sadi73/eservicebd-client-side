@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BookService from '../BookService/BookService';
 import { useParams } from 'react-router-dom';
 import { Divider, Spin } from 'antd';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const ServiceDetails = () => {
 
+    const { user } = useContext(AuthContext);
     const params = useParams();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,7 +60,9 @@ const ServiceDetails = () => {
                         </div>
                     </div>
 
-                    <button className='bg-teal-500 text-white px-5 py-3' onClick={() => setIsModalOpen(true)}>Book Now</button>
+                    {serviceInfo?.providerInfo?.providerEmail !== user?.email &&
+                        <button className='bg-teal-500 text-white px-5 py-3' onClick={() => setIsModalOpen(true)}>Book Now</button>
+                    }
                 </div>
             }
 

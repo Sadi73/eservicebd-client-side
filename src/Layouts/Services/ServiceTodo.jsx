@@ -33,13 +33,13 @@ const ServiceTodo = () => {
     const [serviceIdToUpdateStatus, setServiceIdToUpdateStatus] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/booked-service/all?email=${user?.email}`)
+        fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/booked-service/all?email=${user?.email}`)
             .then(res => res.json())
             .then(data => setServices(data))
     }, [reload]);
 
     const handleStatus = (status) => {
-        fetch(`http://localhost:3000/booked-service/${serviceIdToUpdateStatus}`, {
+        fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/booked-service/${serviceIdToUpdateStatus}`, {
             method: 'put',
             headers: {
                 'content-type': 'application/json'

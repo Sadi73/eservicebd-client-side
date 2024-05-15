@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Modal } from 'antd';
+import { DatePicker, Modal } from 'antd';
 import { useFormik } from 'formik';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,8 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
                 customerName: user?.displayName,
                 customerEmail: user?.email,
             },
-            status: 'Pending'
+            status: 'Pending',
+            date: ''
 
         },
         onSubmit: values => {
@@ -57,12 +58,16 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
             title: 'Success',
             content: 'You have uccessfully Booked this service.',
             onOk: () => {
-                navigate('/booked-service'); 
-              },
-              onCancel: () => {
-                navigate('/booked-service'); 
-              }
+                navigate('/booked-service');
+            },
+            onCancel: () => {
+                navigate('/booked-service');
+            }
         });
+    };
+
+    const onChange = (date, dateString) => {
+        setValues({ ...values, date: dateString })
     };
 
     return (
@@ -158,6 +163,12 @@ const BookService = ({ isModalOpen, setIsModalOpen, serviceToBeBookedInfo }) => 
                             className='border w-full py-2 pl-2'
                             placeholder='Provider Email'
                         />
+                    </div>
+
+
+                    <div className='flex flex-col'>
+                        <label htmlFor="" >Select Date</label>
+                        <DatePicker onChange={onChange} />
                     </div>
 
                     <div>

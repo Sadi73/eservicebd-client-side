@@ -1,9 +1,12 @@
 import { Avatar, Spin } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookService from '../BookService/BookService';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const AllService = () => {
+
+    const { user } = useContext(AuthContext);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -55,10 +58,11 @@ const AllService = () => {
                             <div className='buttons flex items-center'>
                                 <div className=' flex flex-col gap-5'>
                                     <Link to={`/service/${service.sequence_value}`}><button className='bg-teal-500 text-white px-8 py-3 hover:bg-teal-700'>Details</button></Link>
-                                    <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => {
-                                        setServiceToBeBookedInfo(service);
-                                        setIsModalOpen(true);
-                                    }}>Book Now</button>
+                                    {service?.providerInfo?.providerEmail !== user?.email &&
+                                        <button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700' onClick={() => {
+                                            setServiceToBeBookedInfo(service);
+                                            setIsModalOpen(true);
+                                        }}>Book Now</button>}
                                 </div>
                             </div>
                         </div>
