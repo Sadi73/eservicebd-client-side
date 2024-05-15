@@ -54,22 +54,24 @@ const MyServices = () => {
     return (
         <div className='my-10 px-10'>
             {myServices?.length > 0 ? myServices.map(service =>
-                <div key={service?.sequence_value} className='flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
-                    <img
-                        src={service?.imageURL}
-                        alt=""
-                        className='w-96'
-                    />
+                <div key={service?.sequence_value} className='md:flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
+                    <div className='md:flex gap-10'>
+                        <img
+                            src={service?.imageURL}
+                            alt=""
+                            className='w-full md:w-72 lg:w-96'
+                        />
 
-                    <div className='service details w-[500px] grow space-y-5'>
-                        <h1 className='text-3xl font-semibold'>{service?.serviceTitle}</h1>
-                        <p>{service?.description?.slice(0, 200)}<span className='font-bold'>...more</span></p>
+                        <div className='service details md:w-[500px] grow space-y-5 mt-5 md:mt-0 text-center'>
+                            <h1 className='text-3xl font-semibold'>{service?.serviceTitle}</h1>
+                            <p>{service?.description?.slice(0, 200)}<span className='font-bold'>...more</span></p>
 
+                        </div>
                     </div>
 
 
-                    <div className='buttons flex items-center'>
-                        <div className=' flex flex-col gap-5'>
+                    <div className='buttons flex items-center justify-center mt-8 md:mt-0'>
+                        <div className=' flex md:flex-col gap-5'>
                             <Link to={`/service/${service?.sequence_value}`}><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Details</button></Link>
                             <Link to={`/update-service/${service?.sequence_value}`}><button className='bg-teal-500 text-white px-5 py-3 hover:bg-teal-700'>Update</button></Link>
                             <button
@@ -80,7 +82,7 @@ const MyServices = () => {
                             >Delete</button>
                         </div>
                     </div>
-                </div>) : <EmptyScreenView/>
+                </div>) : <EmptyScreenView />
             }
         </div>
     );

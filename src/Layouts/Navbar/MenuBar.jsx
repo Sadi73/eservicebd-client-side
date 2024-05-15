@@ -13,7 +13,7 @@ const items = [
   {
     key: '2',
     label: (
-        <Link to="/">Services</Link>
+        <Link to="/service/all">Services</Link>
     )
   },
   {

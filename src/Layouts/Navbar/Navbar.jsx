@@ -46,7 +46,7 @@ const Navbar = () => {
             <div className='navbar-center hidden md:flex'>
                 <ul className='menu menu-horizontal '>
                     <li className='mx-5 text-teal-500'><Link to="/">Home</Link></li>
-                    <li className='mx-5 text-teal-500'><Link to="service/all">Services</Link></li>
+                    <li className='mx-5 text-teal-500'><Link to="/service/all">Services</Link></li>
                     {user && <li><CustomDropDown /></li>}
                 </ul>
             </div>
