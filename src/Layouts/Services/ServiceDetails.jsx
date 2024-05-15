@@ -3,6 +3,7 @@ import BookService from '../BookService/BookService';
 import { useParams } from 'react-router-dom';
 import { Divider, Spin } from 'antd';
 import { AuthContext } from '../../Providers/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const ServiceDetails = () => {
 
@@ -24,6 +25,9 @@ const ServiceDetails = () => {
 
     return (
         <>
+            <Helmet>
+                <title>EServiceBD | Details</title>
+            </Helmet>
 
             {
                 isModalOpen &&
@@ -37,14 +41,12 @@ const ServiceDetails = () => {
             {isLoading ?
                 <Spin /> :
                 <div className='my-10 px-10 space-y-5'>
-                    <div className='flex gap-5'>
-                        <div className='w-1/3'>
-                            <img src={serviceInfo?.imageURL} alt="image" className='w-full' />
-                        </div>
-                        <div className='w-[60%] space-y-5'>
-                            <h1 className='text-3xl font-semibold'>{serviceInfo?.serviceTitle}</h1>
-                            <p>{serviceInfo?.description}</p>
-                            <p className='text-xl'>price: ${serviceInfo?.price}</p>
+                    <div className='md:flex gap-5'>
+                        <img src={serviceInfo?.imageURL} alt="image" className='w-full md:w-1/3' />
+                        <div className='md:w-[60%] space-y-5 mt-5 md:mt-0'>
+                            <h1 className='text-3xl font-semibold text-center md:text-left'>{serviceInfo?.serviceTitle}</h1>
+                            <p className=' text-center md:text-left'>{serviceInfo?.description}</p>
+                            <p className='text-xl text-center md:text-left'>price: ${serviceInfo?.price}</p>
                         </div>
                     </div>
 
@@ -55,11 +57,11 @@ const ServiceDetails = () => {
                             <h1 className='font-bold'>{serviceInfo?.providerInfo?.providerName}</h1>
                             <p className='font-semibold'>{serviceInfo?.providerInfo?.providerEmail}</p>
                         </div>
-                        <img src={serviceInfo?.providerInfo?.providerImageURL} alt="image not found" className='w-64' />
+                        <img src={serviceInfo?.providerInfo?.providerImageURL} alt="image not found" className='w-64 rounded-full' />
                     </div>
 
                     {serviceInfo?.providerInfo?.providerEmail !== user?.email &&
-                        <button className='bg-teal-500 text-white px-5 py-3' onClick={() => setIsModalOpen(true)}>Book Now</button>
+                        <button className='bg-teal-500 text-white px-5 py-3 w-full' onClick={() => setIsModalOpen(true)}>Book Now</button>
                     }
                 </div>
             }

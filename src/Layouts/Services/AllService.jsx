@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import BookService from '../BookService/BookService';
 import { AuthContext } from '../../Providers/AuthProvider';
 import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
+import { Helmet } from 'react-helmet-async';
 
 const AllService = () => {
 
@@ -25,6 +26,10 @@ const AllService = () => {
 
     return (
         <>
+            <Helmet>
+                <title>EServiceBD | Services</title>
+            </Helmet>
+
             {isModalOpen &&
                 <BookService
                     isModalOpen={isModalOpen}
@@ -36,7 +41,7 @@ const AllService = () => {
                 <div className='my-10 px-5 md:px-10'>
                     {allServices?.length > 0 ? allServices.map(service =>
                         <div key={service?.sequence_value} className='flex flex-col lg:flex-row items-center gap-10 border border-teal-500 p-5 shadow-xl rounded-xl mb-5 min-h-60'>
-                            <div className='md:flex gap-10 items-center'>
+                            <div className='md:flex gap-10 items-center grow'>
                                 <img
                                     src={service?.imageURL}
                                     alt=""

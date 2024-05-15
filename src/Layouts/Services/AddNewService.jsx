@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../../Providers/AuthProvider';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const selectOptions = [
     {
@@ -138,6 +139,10 @@ const AddNewService = () => {
     return (
         <div>
             {/* <div className='h-96 bg-teal-500'></div> */}
+
+            <Helmet>
+                <title>EServiceBD | Add Service</title>
+            </Helmet>
 
             <h1 className='text-5xl font-semibold text-center mt-10'>{params?.serviceId ? 'Update' : 'Add New'} Service</h1>
             <p className='text-center'>Adding new product has never been this easy</p>

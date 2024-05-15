@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
+import { AuthContext } from '../../Providers/AuthProvider';
+import { Helmet } from 'react-helmet-async';
 
 const BookedServices = () => {
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const [allBookedServices, setAllBookedServices] = useState([])
 
     useEffect(() => {
-        fetch('https://b9a11serverside-sadi73s-projects.vercel.app/booked-service/all')
+        fetch(`https://b9a11serverside-sadi73s-projects.vercel.app/booked-service/all?email=${user?.email}`)
             .then(res => res.json())
             .then(data => {
                 setAllBookedServices(data);
@@ -16,6 +19,10 @@ const BookedServices = () => {
 
     return (
         <div className='my-10 bg-teal-200 py-10'>
+            <Helmet>
+                <title>EServiceBD | Booked Service</title>
+            </Helmet>
+
             <h1 className='text-3xl font-semibold text-center text-teal-700'>Booked Services</h1>
             <p className='text-center'>As a customer focused solution provider, we are dedicated to redefine the home improvement service experience for all users</p>
 
@@ -36,7 +43,7 @@ const BookedServices = () => {
                     </div>
                 )}
 
-            </div> : <EmptyScreenView/>
+            </div> : <EmptyScreenView />
             }
 
         </div>

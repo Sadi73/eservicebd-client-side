@@ -5,6 +5,7 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space } from 'antd';
 import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -54,6 +55,10 @@ const ServiceTodo = () => {
 
     return (
         <div className='w-[80%] mx-auto mt-10 space-y-5'>
+            <Helmet>
+                <title>EServiceBD | To Do</title>
+            </Helmet>
+
             {services?.length > 0 ? services.map(service =>
                 <div className='flex items-center gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5 h-60'>
                     <img

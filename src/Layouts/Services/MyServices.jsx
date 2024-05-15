@@ -4,6 +4,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { AuthContext } from '../../Providers/AuthProvider';
 import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
+import { Helmet } from 'react-helmet-async';
 const { confirm } = Modal;
 
 const MyServices = () => {
@@ -53,9 +54,13 @@ const MyServices = () => {
 
     return (
         <div className='my-10 px-10'>
+            <Helmet>
+                <title>EServiceBD | My Service</title>
+            </Helmet>
+
             {myServices?.length > 0 ? myServices.map(service =>
                 <div key={service?.sequence_value} className='md:flex gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5'>
-                    <div className='md:flex gap-10'>
+                    <div className='md:flex gap-10 grow items-center'>
                         <img
                             src={service?.imageURL}
                             alt=""
