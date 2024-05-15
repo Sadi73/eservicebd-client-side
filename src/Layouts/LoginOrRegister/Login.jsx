@@ -1,5 +1,5 @@
 import { Button, Divider, Input } from 'antd';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Providers/AuthProvider';
@@ -10,6 +10,7 @@ const Login = () => {
     const { googleSignIn, loginWithEmailAndPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [authError, setAuthError] = useState(false);
 
     const handleGoogleSignIn = () => {
         googleSignIn()
@@ -33,13 +34,28 @@ const Login = () => {
             // Handle form submission here
             loginWithEmailAndPassword(values?.email, values?.password)
                 .then(result => {
+                    setAuthError(false);
                     if (result?.user?.email) {
-                        navigate(location?.state ? location?.state : '/')
+                        const userInfo = { email: result.user.email }
+                        fetch('https://b9a11serverside-sadi73s-projects.vercel.app/jwt', {
+                            method: 'post',
+                            credentials: 'include',
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(userInfo)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data?.success) {
+                                    navigate(location?.state ? location?.state : '/')
+                                }
+                            });
                     }
 
                 })
                 .catch(error => {
-                    console.log(error)
+                    setAuthError(true);
                 })
         },
     });
@@ -56,6 +72,8 @@ const Login = () => {
                     </div>
 
                     <Divider>OR</Divider>
+
+                    {authError && <p className='text-red-500 font-semibold'>Wrong Email/Password!!!</p>}
 
                     <form className='space-y-5' onSubmit={handleSubmit}>
                         <Input

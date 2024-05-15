@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookService from '../BookService/BookService';
 import { AuthContext } from '../../Providers/AuthProvider';
+import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
 
 const AllService = () => {
 
@@ -33,7 +34,7 @@ const AllService = () => {
             }
             {isLoading ? <Spin /> :
                 <div className='my-10 px-10'>
-                    {allServices.map(service =>
+                    {allServices?.length > 0 ? allServices.map(service =>
                         <div key={service?.sequence_value} className='flex items-center gap-10 border border-teal-500 p-3 shadow-xl rounded-xl mb-5 h-60'>
                             <img
                                 src={service?.imageURL}
@@ -65,8 +66,11 @@ const AllService = () => {
                                         }}>Book Now</button>}
                                 </div>
                             </div>
+                        </div>) :
+                        <div className='flex flex-col items-center justify-center'>
+                            <EmptyScreenView />
+                            <Link to='/add-new-service' className='text-teal-500 font-semibold'>+ Add New Service</Link>
                         </div>
-                    )
                     }
                 </div>}
         </>

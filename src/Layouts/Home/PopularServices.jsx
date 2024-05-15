@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import EmptyScreenView from '../EmptyScreenView/EmptyScreenView';
 
 const PopularServices = () => {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ const PopularServices = () => {
             <h1 className='text-3xl font-semibold text-center text-teal-700'>Popular Services</h1>
             <p className='text-center'>As a customer focused solution provider, we are dedicated to redefine the home improvement service experience for all users</p>
 
-            <div className='card-container w-[80%] mx-auto mt-10 grid grid-cols-3 gap-5'>
+            {popularServices?.length > 0 ? <div className='card-container w-[80%] mx-auto mt-10 grid grid-cols-3 gap-5'>
 
                 {popularServices.map(service =>
                     <div key={service?.sequence_value} className='w-80 p-5 bg-white text-center hover:shadow-2xl h-[450px] flex flex-col'>
@@ -33,7 +34,8 @@ const PopularServices = () => {
 
                     </div>)}
 
-            </div>
+            </div> : <EmptyScreenView message='No Service Found'/>
+            }
 
         </div>
     );
